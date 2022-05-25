@@ -1,23 +1,24 @@
-import { Link, Outlet } from "react-router-dom";
+import { ListItem, Stack, UnorderedList } from "@chakra-ui/react";
+import { Link as ReachLink, Outlet } from "react-router-dom";
 
 import AuthStatus from "./AuthStatus";
 
 function Layout() {
   return (
-    <div>
+    <Stack>
       <AuthStatus />
 
-      <ul>
-        <li>
-          <Link to="/">Public Page</Link>
-        </li>
-        <li>
-          <Link to="/protected">Protected Page</Link>
-        </li>
-      </ul>
+      <UnorderedList>
+        <ListItem>
+          <ReachLink to="/">Public Page</ReachLink>
+        </ListItem>
+        <ListItem>
+          <ReachLink to="/protected">Protected Page</ReachLink>
+        </ListItem>
+      </UnorderedList>
 
       <Outlet />
-    </div>
+    </Stack>
   );
 }
 
