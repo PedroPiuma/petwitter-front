@@ -7,7 +7,7 @@ import dogwithglasses from '../img/dogwithglasses.png'
 import logo from '../img/logo.png'
 import symbol from '../img/symbol.png'
 
-function Login() {
+function SignUp() {
   const navigate = useNavigate();
   const location = useLocation();
   const { signin } = useAuth();
@@ -32,18 +32,20 @@ function Login() {
   return (
     <Flex direction={'column'} align='center' pb={'24px'}>
       <Flex direction={'column'} bgImage={dogwithglasses} w='100%' bgPosition={'center'}
-        bgRepeat='no-repeat' color='white' h={'262px'}
-        fontSize={'36px'} fontWeight='700' lineHeight={'49px'} p={'46px 32px 25px 26px'} justify='space-between'>
+        bgRepeat='no-repeat' color='white'
+        fontSize={'36px'} fontWeight='700' lineHeight={'49px'} p={'46px 32px 43px 26px'} justify='space-between'>
         <Image src={symbol} w={53} />
-        <Stack>
-          <Text>Comece agora.</Text>
-          <Text>Conecte-se já!</Text>
-        </Stack>
       </Flex>
-      <FormControl as={Flex} marginTop={'32px'} px='32px' flexDirection={'column'} gap={'40px'} onSubmit={handleSubmit}>
-        <Text fontSize={'24px'} fontWeight={'600'} lineHeight={'40px'}>Login</Text>
-        <FormLabel htmlFor='email'>E-mail
-          <Input id='email' type='email' placeholder="E-mail" />
+      <FormControl as={Flex} marginTop={'32px'} px='32px' flexDirection={'column'} gap={'16px'} onSubmit={handleSubmit}>
+        <Text fontSize={'24px'} fontWeight={'600'} lineHeight={'40px'}>Cadastro</Text>
+        <FormLabel htmlFor='name' mt={'32px'}>Nome
+          <Input id='name' type='text' placeholder="Nome" />
+        </FormLabel>
+        <FormLabel htmlFor='email'>Email
+          <Input id='email' type='email' placeholder="Email" />
+        </FormLabel>
+        <FormLabel htmlFor='username'>Nome de usuário
+          <Input id='username' type='text' placeholder="Ex.: @billbulldog" />
         </FormLabel>
         <FormLabel htmlFor='password'>Senha
           <InputGroup size='md'>
@@ -58,14 +60,15 @@ function Login() {
               </Button>
             </InputRightElement>
           </InputGroup>
+          <Text fontSize={'10px'}>Deve conter no mínimo um número e uma letra maiúscula</Text>
         </FormLabel>
 
-        <Button bgColor='#00ACC1' color={'white'}>Entrar</Button>
+        <Button bgColor='#00ACC1' color={'white'} mt={'44px'}>Cadastrar</Button>
 
 
         <Stack>
-          <Text>Ainda não possui uma conta?</Text>
-          <Link as={ReachLink} to={'/signup'} color='#00acc1'>Cadastrar-se</Link>
+          <Text>Já possui cadastro?</Text>
+          <Link as={ReachLink} to={'/'} color='#00acc1'>Faça login</Link>
         </Stack>
       </FormControl>
 
@@ -74,4 +77,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;
