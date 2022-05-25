@@ -1,11 +1,11 @@
 import { createContext, useState, useContext } from "react";
 import { useLocation, Navigate } from "react-router-dom";
-
 import { setInStorage, login } from "../services/auth";
 
 const AuthContext = createContext(null);
 
-export function AuthProvider({ children }) {
+export const AuthProvider = ({ children }) => {
+  // console.log(children)
   const userStored = localStorage.getItem("user");
   const [user, setUser] = useState(userStored ? JSON.parse(userStored) : null);
 
@@ -16,7 +16,6 @@ export function AuthProvider({ children }) {
         accessToken: response.data.accessToken,
         ...response.data.user,
       };
-
       setInStorage("user", user);
       setUser(user);
     } catch (error) {
@@ -33,22 +32,14 @@ export function AuthProvider({ children }) {
   return (
     <AuthContext.Provider value={{ user, signin, signout }}>
       {children}
-    </AuthContext.Provider>
-  );
+    </AuthContext.Provider>);
 }
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
+export const useAuth = () => useContext(AuthContext)
 
-export function RequireAuth({ children }) {
+export const RequireAuth = ({ children }) => {
   let auth = useAuth();
-
   let location = useLocation();
-
-  if (!auth.user?.accessToken) {
-    return <Navigate to="/" state={{ from: location }} />;
-  }
-
+  if (!auth.user?.accessToken) { return <Navigate to="/login" state={{ from: location }} />; }
   return children;
 }

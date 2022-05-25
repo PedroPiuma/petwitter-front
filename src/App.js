@@ -10,9 +10,9 @@ function App() {
     <AuthProvider>
       <Routes>
         {/* <Route element={<Layout />}> */}
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/protected" element={
+        <Route path="/" element={
           <RequireAuth>
             <ProtectedPage />
           </RequireAuth>
