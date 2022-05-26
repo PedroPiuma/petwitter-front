@@ -41,7 +41,7 @@ const Login = () => {
   return (
     <Flex direction={['column', 'row']} align='center' pb={['24px', 0]}>
       <Flex direction={'column'} bgImage={[dogWithGlasses, dogWithGlassesDesktop]} w='100%' maxW={'768px'} bgPosition={'center'} bgSize={'cover'}
-        bgRepeat='no-repeat' color='white' height={['262px', '100vh']} bgColor='gray'
+        bgRepeat='no-repeat' color='white' height={['262px', '100vh']}
         fontSize={'36px'} fontWeight='700' lineHeight={'49px'} p={'46px 32px 25px 26px'} justify={['space-between', 'center']}>
         {!isLargerThan480 ?
           <>
@@ -79,10 +79,7 @@ const Login = () => {
               {errors.password && <span>{errors.password.message}</span>}
             </FormLabel>
             <Button bgColor='#00ACC1' type="submit" color={'white'} >Entrar</Button>
-            <Stack>
-              <Text>Ainda não possui uma conta?{isLargerThan480 ? ' ' : <br />}<Link as={ReachLink} to={'/signup'} color='#00acc1'>Cadastrar-se</Link></Text>
-
-            </Stack>
+            <Text>Ainda não possui uma conta?{isLargerThan480 ? ' ' : <br />}<Link as={ReachLink} to={'/signup'} color='#00acc1'>Cadastrar-se</Link></Text>
           </FormControl>
         </form>
       </Stack>

@@ -44,7 +44,7 @@ const SignUp = () => {
     <Flex direction={['column', 'row']} align='center' pb={['24px', 0]}>
 
       <Flex direction={'column'} bgImage={[dogWithGlasses, dogWithGlassesDesktop]} w='100%' maxW={'628px'} bgPosition={'center'} bgSize={'cover'}
-        bgRepeat='no-repeat' color='white' height={['143px', '100vh']} bgColor='gray'
+        bgRepeat='no-repeat' color='white' height={['143px', '100vh']} bgColor='gray' alignSelf={'flex-start'}
         fontSize={'36px'} fontWeight='700' lineHeight={'49px'} p={'46px 32px 25px 26px'} justify={['space-between', 'center']}>
         {!isLargerThan480 ? <Image src={symbol} w={53} /> : <Image src={logoDesktop} width={'418px'} alignSelf='center' />}
       </Flex>
