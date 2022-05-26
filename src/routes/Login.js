@@ -64,7 +64,7 @@ const Login = () => {
             </> : ''}
             <Text fontSize='24px' fontWeight='600' lineHeight='40px'>Login</Text>
             <FormLabel>E-mail
-              <Input id="email" type='email' placeholder="E-mail" {...register("email")} />
+              <Input id="email" type='email' placeholder="E-mail" variant={'outline'} {...register("email")} />
               {errors.email && <span>{errors.email.message}</span>}
             </FormLabel>
             <FormLabel>Senha
