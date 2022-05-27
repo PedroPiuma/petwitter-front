@@ -1,4 +1,4 @@
-import { Text, Flex, ListItem, Stack, UnorderedList, Image, useDisclosure, Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, Button, useMediaQuery, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody } from "@chakra-ui/react";
+import { Text, Flex, Stack, Image, useDisclosure, Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, Button, useMediaQuery, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody } from "@chakra-ui/react";
 import { Link as ReachLink, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../context/auth-context";
 import menuHamburguer from '../img/menu-hamburguer.png'
@@ -7,9 +7,7 @@ import AuthStatus from "./AuthStatus";
 import exitIcon from '../img/exit-icon.png'
 import homeIcon from '../img/homeIcon.png'
 import profileIcon from '../img/profileIcon.png'
-
-
-import dogwithglasses from '../img/dogwithglasses.png'
+import profileDefault from '../img/profileDefault.png'
 import { useRef } from "react";
 
 function Layout() {
@@ -51,11 +49,11 @@ function Layout() {
             <DrawerOverlay />
             <DrawerContent>
               <DrawerCloseButton />
-              <DrawerHeader><Image borderRadius='full' boxSize='56px' src={dogwithglasses} /></DrawerHeader>
+              <DrawerHeader><Image borderRadius='full' boxSize='56px' src={profileDefault} /></DrawerHeader>
               <DrawerBody>
                 <Flex direction='column' align={'center'} width={'100%'} mt={'36px'} gap={'16px'}>
-                  <Button width={'100%'} colorScheme='teal' variant='link' lineHeight={'24px'} py={'4px'} borderRadius={0} bg={location.pathname === '/' ? '#e5f7f9' : ''} boxShadow={location.pathname === '/' ? 'inset 6px 0 0 #00ACC1' : ''} as={ReachLink} to={'/'} >Home</Button>
-                  <Button width={'100%'} colorScheme='teal' variant='link' py={'4px'} borderRadius={0} bg={location.pathname === '/profile' ? '#e5f7f9' : ''} boxShadow={location.pathname === '/profile' ? 'inset 6px 0 0 #00ACC1' : ''} as={ReachLink} to="/#">Meu petfil</Button>
+                  <Button width={'100%'} colorScheme='teal' variant='link' lineHeight={'24px'} py={'4px'} borderRadius={0} bg={location.pathname === '/' ? '#e5f7f9' : ''} boxShadow={location.pathname === '/' ? 'inset 6px 0 0 #00ACC1' : ''} as={ReachLink} to={'/'} onClick={onClose}>Home</Button>
+                  <Button width={'100%'} colorScheme='teal' variant='link' py={'4px'} borderRadius={0} bg={location.pathname === '/profile' ? '#e5f7f9' : ''} boxShadow={location.pathname === '/profile' ? 'inset 6px 0 0 #00ACC1' : ''} as={ReachLink} to="/profile" onClick={onClose}>Meu petfil</Button>
                   <Button width={'100%'} colorScheme='teal' variant='link' py={'4px'} borderRadius={0} _hover={{ backgroundColor: '#e5f7f9', boxShadow: 'inset 6px 0 0 #00ACC1' }} onClick={modalOnOpen}><Image src={exitIcon} mr='11px' />Sair</Button>
                 </Flex>
               </DrawerBody>
@@ -66,22 +64,13 @@ function Layout() {
         <Flex direction={'column'} align={'center'} height='100vh' width={'297px'} borderRight={'1px solid gray'} pt={'24px'}>
           <Image src={logo} height={'54px'} width={'225px'} />
           <Flex width={'100%'} direction='column' align={'flex-start'} >
-            <Button pl={'70px'} justifyContent={'flex-start'} w={'100%'} colorScheme='teal' variant='link' py={'12px'} borderRadius={0} bg={location.pathname === '/' ? '#e5f7f9' : ''} boxShadow='inset 6px 0 0 #00ACC1' as={ReachLink} to={'/'} ><Image src={homeIcon} mr='10px' />Home</Button>
-            <Button pl={'70px'} justifyContent={'flex-start'} w={'100%'} colorScheme='teal' variant='link' py={'12px'} borderRadius={0} bg={{ backgroundColor: '#e5f7f9', boxShadow: 'inset 6px 0 0 #00ACC1' }} as={ReachLink} to="/#"><Image src={profileIcon} mr='10px' />Meu petfil</Button>
+            <Button pl={'70px'} justifyContent={'flex-start'} w={'100%'} colorScheme='teal' variant='link' py={'12px'} borderRadius={0} bg={location.pathname === '/' ? '#e5f7f9' : ''} boxShadow={location.pathname === '/' ? 'inset 6px 0 0 #00ACC1' : ''} as={ReachLink} to={'/'} ><Image src={homeIcon} mr='10px' />Home</Button>
+            <Button pl={'70px'} justifyContent={'flex-start'} w={'100%'} colorScheme='teal' variant='link' py={'12px'} borderRadius={0} bg={location.pathname === '/profile' ? '#e5f7f9' : ''} boxShadow={location.pathname === '/profile' ? 'inset 6px 0 0 #00ACC1' : ''} as={ReachLink} to="/profile"><Image src={profileIcon} mr='10px' />Meu petfil</Button>
             <Button pl={'70px'} justifyContent={'flex-start'} w={'100%'} colorScheme='teal' variant='link' py={'12px'} borderRadius={0} onClick={modalOnOpen}><Image src={exitIcon} mr='11px' />Sair</Button>
           </Flex>
         </Flex>}
 
-      <AuthStatus />
-
-      <UnorderedList>
-        <ListItem>
-          <ReachLink to="/">Public Page</ReachLink>
-        </ListItem>
-        <ListItem>
-          <ReachLink to="/protected">Protected Page</ReachLink>
-        </ListItem>
-      </UnorderedList>
+      {/* <AuthStatus /> */}
 
       <Outlet />
     </Flex >

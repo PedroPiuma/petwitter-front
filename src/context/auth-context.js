@@ -5,7 +5,6 @@ import { setInStorage, login } from "../services/auth";
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  // console.log(children)
   const userStored = localStorage.getItem("user");
   const [user, setUser] = useState(userStored ? JSON.parse(userStored) : null);
 
