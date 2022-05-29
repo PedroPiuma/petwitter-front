@@ -3,7 +3,6 @@ import { Link as ReachLink, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../context/auth-context";
 import menuHamburguer from '../img/menu-hamburguer.png'
 import logo from '../img/logo.png'
-import AuthStatus from "./AuthStatus";
 import exitIcon from '../img/exit-icon.png'
 import homeIcon from '../img/homeIcon.png'
 import profileIcon from '../img/profileIcon.png'
@@ -24,7 +23,7 @@ function Layout() {
   }
 
   return (
-    <Flex direction={['column', 'row']}>
+    <Flex direction={['column', 'row']} >
       <Modal isOpen={modalIsOpen} onClose={modalOnClose}>
         <ModalOverlay />
         <ModalContent mx={'10px'} maxW={'385px'}>
@@ -53,7 +52,7 @@ function Layout() {
               <DrawerBody>
                 <Flex direction='column' align={'center'} width={'100%'} mt={'36px'} gap={'16px'}>
                   <Button width={'100%'} colorScheme='teal' variant='link' lineHeight={'24px'} py={'4px'} borderRadius={0} bg={location.pathname === '/' ? '#e5f7f9' : ''} boxShadow={location.pathname === '/' ? 'inset 6px 0 0 #00ACC1' : ''} as={ReachLink} to={'/'} onClick={onClose}>Home</Button>
-                  <Button width={'100%'} colorScheme='teal' variant='link' py={'4px'} borderRadius={0} bg={location.pathname === '/profile' ? '#e5f7f9' : ''} boxShadow={location.pathname === '/profile' ? 'inset 6px 0 0 #00ACC1' : ''} as={ReachLink} to="/profile" onClick={onClose}>Meu petfil</Button>
+                  <Button width={'100%'} colorScheme='teal' variant='link' lineHeight={'24px'} py={'4px'} borderRadius={0} bg={location.pathname === '/profile' ? '#e5f7f9' : ''} boxShadow={location.pathname === '/profile' ? 'inset 6px 0 0 #00ACC1' : ''} as={ReachLink} to="/profile" onClick={onClose}>Meu petfil</Button>
                   <Button width={'100%'} colorScheme='teal' variant='link' py={'4px'} borderRadius={0} _hover={{ backgroundColor: '#e5f7f9', boxShadow: 'inset 6px 0 0 #00ACC1' }} onClick={modalOnOpen}><Image src={exitIcon} mr='11px' />Sair</Button>
                 </Flex>
               </DrawerBody>
@@ -69,8 +68,6 @@ function Layout() {
             <Button pl={'70px'} justifyContent={'flex-start'} w={'100%'} colorScheme='teal' variant='link' py={'12px'} borderRadius={0} onClick={modalOnOpen}><Image src={exitIcon} mr='11px' />Sair</Button>
           </Flex>
         </Flex>}
-
-      {/* <AuthStatus /> */}
 
       <Outlet />
     </Flex >
