@@ -15,6 +15,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<RequireAuth><Home /></RequireAuth>} />
           <Route path="/profile" element={<RequireAuth><Profile /></RequireAuth>} />
+          <Route path="/profile/:user_id" element={<RequireAuth><Profile /></RequireAuth>} />
         </Route>
       </Routes>
     </AuthProvider>
