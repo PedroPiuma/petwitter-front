@@ -7,7 +7,6 @@ const instance = axios.create({ baseURL: apiURL });
 
 instance.interceptors.request.use((config) => {
   const user = getFromStorage("user");
-  console.log(user)
   return {
     ...config,
     headers: {
