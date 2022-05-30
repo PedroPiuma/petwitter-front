@@ -28,7 +28,7 @@ const Petweet = ({ body, createdAt, user_id }) => {
             <Image src={profileDefault} borderRadius='full' boxSize={['48px', '40px']} cursor={'zoom-in'} onClick={onOpen} />
             <Flex direction={'column'} gap={['4px', '9px']}>
                 <Stack direction={'row'} align='center' gap={['4px']}>
-                    <Link to={`profile/${user_id}`}><Text color={['#7d7d7d', 'black']} fontWeight={700} fontSize={['14px', '15px']} lineHeight={['19px', '20px']}>{user.name}</Text></Link>
+                    <Link to={`profile/${user_id}`}><Text color={colorMode === 'light' ? ['#7d7d7d', 'black'] : '#e2e2e2'} fontWeight={700} fontSize={['14px', '15px']} lineHeight={['19px', '20px']}>{user.name}</Text></Link>
                     <Text color={['#7d7d7d', '#828282']} fontWeight={[300, 400]} fontSize={['12px', '15px']} lineHeight={['17px', '20px']}>{user.username}</Text>
                     <UnorderedList ><ListItem ml={'15px'} color={'#757575'} fontWeight={300} fontSize={'12px'} lineHeight={'17px'}> <ReactTimeAgo date={Date.parse(createdAt)} locale="pt-BR" /></ListItem></UnorderedList>
                 </Stack>

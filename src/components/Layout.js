@@ -58,9 +58,11 @@ function Layout() {
               <DrawerBody p={0}>
                 <Flex direction='column' align={'center'} width={'100%'} mt={'36px'} gap={'16px'}>
                   <Image borderRadius='full' boxSize='56px' src={profileDefault} />
-                  <Button width={'100%'} colorScheme='teal' variant='link' lineHeight={'24px'} py={'4px'} borderRadius={0} bg={location.pathname === '/' ? '#e5f7f9' : ''} boxShadow={location.pathname === '/' ? 'inset 6px 0 0 #00ACC1' : ''}
+                  <Button width={'100%'} colorScheme='teal' variant='link' lineHeight={'24px'} py={'4px'}
+                    borderRadius={0} bg={location.pathname === '/' ? (colorMode === 'light' ? '#e5f7f9' : '#3e3e3e') : ''} boxShadow={location.pathname === '/' ? 'inset 6px 0 0 #00ACC1' : ''}
                     as={ReachLink} to={'/'} onClick={onClose}>Home</Button>
-                  <Button width={'100%'} colorScheme='teal' variant='link' lineHeight={'24px'} py={'4px'} borderRadius={0} bg={location.pathname === '/profile' ? '#e5f7f9' : ''} boxShadow={location.pathname === '/profile' ? 'inset 6px 0 0 #00ACC1' : ''}
+                  <Button width={'100%'} colorScheme='teal' variant='link' lineHeight={'24px'} py={'4px'}
+                    borderRadius={0} bg={location.pathname === '/profile' ? (colorMode === 'light' ? '#e5f7f9' : '#3e3e3e') : ''} boxShadow={location.pathname === '/profile' ? 'inset 6px 0 0 #00ACC1' : ''}
                     as={ReachLink} to="/profile" onClick={onClose}>Meu petfil</Button>
                   <Button width={'100%'} colorScheme='teal' variant='link' py={'4px'} borderRadius={0} _hover={{ backgroundColor: '#e5f7f9', boxShadow: 'inset 6px 0 0 #00ACC1' }}
                     onClick={modalOnOpen}><Image src={exitIcon} mr='11px' />Sair</Button>
@@ -77,9 +79,9 @@ function Layout() {
             <Text fontWeight={700} fontSize={'27px'} lineHeight={'40px'} color={'#00ACC1'}>PETWITTER</Text>
           </Flex>
           <Flex width={'100%'} direction='column' align={'flex-start'} >
-            <Button pl={'70px'} justifyContent={'flex-start'} w={'100%'} colorScheme='teal' variant='link' py={'12px'} borderRadius={0} bg={location.pathname === '/' ? '#e5f7f9' : ''} boxShadow={location.pathname === '/' ? 'inset 6px 0 0 #00ACC1' : ''}
+            <Button pl={'70px'} justifyContent={'flex-start'} w={'100%'} colorScheme='teal' variant='link' py={'12px'} borderRadius={0} bg={location.pathname === '/' ? (colorMode === 'light' ? '#e5f7f9' : '#3e3e3e') : ''} boxShadow={location.pathname === '/' ? 'inset 6px 0 0 #00ACC1' : ''}
               as={ReachLink} to={'/'} ><Icon as={MdHome} mr='10px' w={'20px'} h={'20px'} />Home</Button>
-            <Button pl={'70px'} justifyContent={'flex-start'} w={'100%'} colorScheme='teal' variant='link' py={'12px'} borderRadius={0} bg={location.pathname === '/profile' ? '#e5f7f9' : ''} boxShadow={location.pathname === '/profile' ? 'inset 6px 0 0 #00ACC1' : ''}
+            <Button pl={'70px'} justifyContent={'flex-start'} w={'100%'} colorScheme='teal' variant='link' py={'12px'} borderRadius={0} bg={location.pathname === '/profile' ? (colorMode === 'light' ? '#e5f7f9' : '#3e3e3e') : ''} boxShadow={location.pathname === '/profile' ? 'inset 6px 0 0 #00ACC1' : ''}
               as={ReachLink} to="/profile"><Icon as={CgProfile} mr='10px' w={'20px'} h={'20px'} />Meu petfil</Button>
             <Button pl={'70px'} justifyContent={'flex-start'} w={'100%'} colorScheme='teal' variant='link' py={'12px'} borderRadius={0} onClick={modalOnOpen}><Icon as={BiExit} mr='11px' w={'20px'} h={'20px'} />Sair</Button>
           </Flex>

@@ -1,4 +1,4 @@
-import { Box, Stack, Image, Textarea, Button, Text, Flex, useDisclosure, Modal, ModalOverlay, ModalContent, ModalBody } from '@chakra-ui/react'
+import { Box, Stack, Image, Textarea, Button, Text, Flex, useDisclosure, Modal, ModalOverlay, ModalContent, ModalBody, useColorMode } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import Petweet from '../components/Petweet'
 import client from '../providers/client'
@@ -10,6 +10,7 @@ const Home = () => {
   const [sending, setSending] = useState(false)
   const [petwitteLength, setPetwitteLength] = useState(0)
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { colorMode } = useColorMode()
 
   useEffect(() => {
     try {
@@ -55,7 +56,7 @@ const Home = () => {
 
         <Flex align={'center'} gap={'8px'} alignSelf='flex-end'>
           <Text color={'#828282'} fontSize={'14px'} lineHeight={'24px'}>{petwitteLength}/140</Text>
-          <Button isLoading={sending} bg='#99dee6' color={'white'} borderRadius='8px' size={'sm'} onClick={petwitte}>Petwittar</Button>
+          <Button isLoading={sending} bg={colorMode === 'light' ? '#99dee6' : '#3e3e3e'} color={'white'} borderRadius='8px' size={'sm'} onClick={petwitte}>Petwittar</Button>
         </Flex>
 
       </Stack>
@@ -68,7 +69,6 @@ const Home = () => {
         <ModalOverlay />
         <ModalContent margin={0} height='100vh' borderRadius={0}>
           <ModalBody padding={0}>
-
             <Flex paddingLeft={'16px'} paddingRight={'8px'} align={'center'} justifyContent={'space-between'} alignSelf='flex-end' borderBottom={'1px solid #ebebeb'} height={'64px'}>
               <Button colorScheme='blue' mr={3} onClick={onClose} variant={'link'} fontWeight={300} fontSize='12px' lineHeight={'21px'} color='#424242'>Cancelar</Button>
               <Flex align={'center'} gap={'8px'}>
@@ -76,12 +76,10 @@ const Home = () => {
                 <Button isLoading={sending} bg='#99dee6' color={'white'} borderRadius='8px' size={'sm'} onClick={petwitte}>Petwittar</Button>
               </Flex>
             </Flex>
-
             <Flex mt={'6px'} paddingLeft={'16px'} paddingRight={'8px'}>
               <Image src={profileDefault} borderRadius='full' boxSize={'37px'} />
               <Textarea id='petwitte-mobile' rows={20} disabled={sending} border={'none'} resize={'none'} placeholder='O que está acontecendo?' maxLength="140" onChange={(event) => setPetwitteLength(event.target.value.length)} />
             </Flex>
-
           </ModalBody>
         </ModalContent>
       </Modal>

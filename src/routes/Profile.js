@@ -34,8 +34,6 @@ const Profile = () => {
     }
   }, [id, pic, user_id])
 
-  console.log(profile)
-
   return (
     <Stack minW={'320px'} maxW={'683px'} spacing={0} width={'100%'}>
       <Stack w={'100%'} p={['34px']} direction='row' align={'center'} gap={['34px']} position='relative'
