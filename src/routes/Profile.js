@@ -49,7 +49,7 @@ const Profile = () => {
         <Text position={'absolute'} px={'8px'} bottom={0} borderBottom={'4px solid #00ACC1'}>Petposts</Text>
       </Stack>
 
-      <Box direction={'column'}>{twittes.map(elem => <Petweet key={elem.id} body={elem.body} user_id={user_id || id} />)}</Box>
+      <Box direction={'column'}>{twittes.map(elem => <Petweet key={elem.id} body={elem.body} createdAt={elem.createdAt} user_id={user_id || id} />)}</Box>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

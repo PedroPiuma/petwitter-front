@@ -25,13 +25,11 @@ const Home = () => {
 
   const petwitte = () => {
     setSending(true)
-    const petwitte = document.getElementById('petwitte').value
-    const petwitteMobile = document.getElementById('petwitte-mobile').value
-    const twitte = petwitte || petwitteMobile
-    console.log(twitte)
+    const petwitte = document.getElementById('petwitte')?.value
+    const petwitteMobile = document.getElementById('petwitte-mobile')?.value
     const request = async () => {
       try {
-        await client.post('/twitte', { body: twitte })
+        await client.post('/twitte', { body: petwitte ? petwitte : petwitteMobile })
         alert('Twitte feito com sucesso')
         document.getElementById('petwitte').value = ''
       } catch (error) {
@@ -62,7 +60,7 @@ const Home = () => {
 
       </Stack>
 
-      <Box direction={'column'}>{twittes.reverse().map(elem => <Petweet key={elem.id} user_id={elem.user_id} body={elem.body} />)}</Box>
+      <Box direction={'column'}>{twittes.reverse().map(elem => <Petweet key={elem.id} user_id={elem.user_id} createdAt={elem.createdAt} body={elem.body} />)}</Box>
 
       <Image display={['block', 'none']} src={plusCircleIcon} borderRadius='full' boxSize={'56px'} position={'fixed'} bottom={'24px'} right={'16px'} cursor={'pointer'} onClick={onOpen} />
 
