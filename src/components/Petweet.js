@@ -39,7 +39,7 @@ const Petweet = ({ body, createdAt, user_id }) => {
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
-                <ModalContent><Image src={profileDefault} cursor={'zoom-out'} onClick={onClose} /></ModalContent>
+                <ModalContent><Image src={userPicture} cursor={'zoom-out'} onClick={onClose} /></ModalContent>
             </Modal>
         </Stack>
     )
