@@ -72,7 +72,7 @@ function Layout() {
           </Drawer>
         </Flex>
         :
-        <Flex position={'relative'} direction={'column'} align={'center'} height='100vh' width={'297px'} borderRight={'1px solid gray'} pt={'24px'}>
+        <Flex position={'relative'} direction={'column'} align={'center'} height='100vh' width={'297px'} borderRight={'1px solid #EEEEEE'} pt={'24px'}>
           <Icon position={'absolute'} right={'8px'} top={'8px'} as={colorMode === 'light' ? MoonIcon : SunIcon} w={5} h={5} cursor={'alias'} onClick={toggleColorMode} opacity={0.5} />
           <Flex align={'center'} gap={'23px'}>
             <Icon as={MdPets} w={'54px'} h={'54px'} cursor='none' color={'#00ACC1'} p={'5px'} />

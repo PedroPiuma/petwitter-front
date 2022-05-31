@@ -11,6 +11,7 @@ import ReactTimeAgo from 'react-time-ago'
 const Petweet = ({ body, createdAt, user_id }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [user, setUser] = useState([])
+    const [userPicture, setUserPicutre] = useState(profileDefault)
     const { colorMode } = useColorMode()
 
     useEffect(() => {
@@ -18,14 +19,15 @@ const Petweet = ({ body, createdAt, user_id }) => {
             try {
                 const response = await client.get(`/users/${user_id}`)
                 setUser(response.data)
+                if (user.image_url) setUserPicutre(process.env.REACT_APP_API_URL + '/' + user.image_url)
             } catch (error) { console.log(error) }
         }
         request()
-    }, [user_id])
+    }, [user_id, user.image_url])
 
     return (
         <Stack direction={'row'} p={['20px 16px 16px 16px']} border={'1px solid #EEEEEE'}>
-            <Image src={profileDefault} borderRadius='full' boxSize={['48px', '40px']} cursor={'zoom-in'} onClick={onOpen} />
+            <Image crossOrigin='anonymous' src={userPicture} borderRadius='full' boxSize={['48px', '40px']} cursor={'zoom-in'} onClick={onOpen} />
             <Flex direction={'column'} gap={['4px', '9px']}>
                 <Stack direction={'row'} align='center' gap={['4px']}>
                     <Link to={`profile/${user_id}`}><Text color={colorMode === 'light' ? ['#7d7d7d', 'black'] : '#e2e2e2'} fontWeight={700} fontSize={['14px', '15px']} lineHeight={['19px', '20px']}>{user.name}</Text></Link>

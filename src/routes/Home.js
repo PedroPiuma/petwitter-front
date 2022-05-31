@@ -1,13 +1,18 @@
-import { Box, Stack, Image, Textarea, Button, Text, Flex, useDisclosure, Modal, ModalOverlay, ModalContent, ModalBody, useColorMode } from '@chakra-ui/react'
+import {
+  Box, Stack, Image, Textarea, Button, Text, Flex, useDisclosure, Modal,
+  ModalOverlay, ModalContent, ModalBody, useColorMode
+} from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import Petweet from '../components/Petweet'
 import client from '../providers/client'
 import profileDefault from '../img/profileDefault.png'
 import plusCircleIcon from '../img/plusCircleIcon.png'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 const Home = () => {
   const [twittes, setTwittes] = useState([])
   const [sending, setSending] = useState(false)
+  const [take, setTake] = useState(10)
   const [petwitteLength, setPetwitteLength] = useState(0)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { colorMode } = useColorMode()
@@ -15,14 +20,14 @@ const Home = () => {
   useEffect(() => {
     try {
       const request = async () => {
-        const response = await client.get(`twitte`)
-        setTwittes(response.data.reverse())
+        const response = await client.get(`twitte?take=${take}`)
+        setTwittes(twittes.concat(response.data))
       }
       request()
     } catch (error) {
       console.log(error)
     }
-  }, [sending])
+  }, [sending, take])
 
   const petwitte = () => {
     setSending(true)
@@ -44,6 +49,8 @@ const Home = () => {
     if (petwitte || petwitteMobile) request()
   }
 
+  const fetchData = () => setTake(take + 10)
+
   return (
     <Stack borderTop={'1px solid gray'} spacing={0} >
 
@@ -61,7 +68,21 @@ const Home = () => {
 
       </Stack>
 
-      <Box direction={'column'}>{twittes.reverse().map(elem => <Petweet key={elem.id} user_id={elem.user_id} createdAt={elem.createdAt} body={elem.body} />)}</Box>
+      <InfiniteScroll
+        dataLength={twittes.length}
+        next={fetchData}
+        hasMore={true}
+        loader={<Button isLoading colorScheme='teal' variant='solid'></Button>}
+        endMessage={
+          <p style={{ textAlign: 'center' }}>
+            <b>Yay! You have seen it all</b>
+          </p>
+        }
+      >
+        <Box direction={'column'}>{twittes.map((elem, index) => <Petweet key={elem.id + Date.now().toString() + index} user_id={elem.user_id} createdAt={elem.createdAt} body={elem.body} />)}</Box>
+      </InfiniteScroll>
+
+      {/* <Box direction={'column'}>{items.reverse().map(elem => <Petweet key={elem.id} user_id={elem.user_id} createdAt={elem.createdAt} body={elem.body} />)}</Box> */}
 
       <Image display={['block', 'none']} src={plusCircleIcon} borderRadius='full' boxSize={'56px'} position={'fixed'} bottom={'24px'} right={'16px'} cursor={'pointer'} onClick={onOpen} />
 
