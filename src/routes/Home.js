@@ -21,7 +21,7 @@ const Home = () => {
     try {
       const request = async () => {
         const response = await client.get(`twitte?take=${take}`)
-        setTwittes(twittes.concat(response.data))
+        setTwittes(response.data)
       }
       request()
     } catch (error) {
