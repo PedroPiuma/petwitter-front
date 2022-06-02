@@ -5,11 +5,10 @@ import {
 } from "@chakra-ui/react";
 import { Link as ReachLink, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../context/auth-context";
+import { useRef } from "react";
 import menuHamburguer from '../img/menu-hamburguer.png'
 import logo from '../img/logo.png'
-import exitIcon from '../img/exit-icon.png'
 import profileDefault from '../img/profileDefault.png'
-import { useRef } from "react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { CgProfile } from 'react-icons/cg';
 import { MdHome, MdPets } from 'react-icons/md';
@@ -36,9 +35,9 @@ function Layout() {
         <ModalContent mx={'10px'} maxW={'385px'}>
           <ModalCloseButton />
           <ModalBody>
-            <Stack p={'16px'} bgColor={'white'} borderRadius={'8px'}>
-              <Text fontWeight={'600'} fontSize='24px' color={'gray.700'}>Sair desta conta?</Text>
-              <Text fontWeight={'400'} fontSize='16px' color={'#757575'}>Deseja realmente sair desta conta?</Text>
+            <Stack p={'16px'} bgColor={'white'} borderRadius={'8px'} backgroundColor={'none'}>
+              <Text fontWeight={'600'} fontSize='24px' color={colorMode === 'dark' ? '#a8dcfa' : 'gray.700'}>Sair desta conta?</Text>
+              <Text fontWeight={'400'} fontSize='16px' color={colorMode === 'dark' ? '#a8dcfa' : '#757575'}>Deseja realmente sair desta conta?</Text>
               <Flex justifyContent={'space-between'} gap={'12px'}>
                 <Button colorScheme='twitter' variant='outline' w={['146px', '161px']} onClick={signout}>Sair</Button>
                 <Button colorScheme='twitter' variant='solid' w={['146px', '161px']} onClick={closeAll}>Cancelar</Button>
@@ -65,14 +64,14 @@ function Layout() {
                     borderRadius={0} bg={location.pathname === '/profile' ? (colorMode === 'light' ? '#e5f7f9' : '#3e3e3e') : ''} boxShadow={location.pathname === '/profile' ? 'inset 6px 0 0 #00ACC1' : ''}
                     as={ReachLink} to="/profile" onClick={onClose}>Meu petfil</Button>
                   <Button width={'100%'} colorScheme='teal' variant='link' py={'4px'} borderRadius={0} _hover={{ backgroundColor: '#e5f7f9', boxShadow: 'inset 6px 0 0 #00ACC1' }}
-                    onClick={modalOnOpen}><Image src={exitIcon} mr='11px' />Sair</Button>
+                    onClick={modalOnOpen}><Icon as={BiExit} mr='11px' w={'20px'} h={'20px'} />Sair</Button>
                 </Flex>
               </DrawerBody>
             </DrawerContent>
           </Drawer>
         </Flex>
         :
-        <Flex position={'relative'} direction={'column'} align={'center'} height='100vh' width={'297px'} borderRight={'1px solid #EEEEEE'} pt={'24px'}>
+        <Flex position={'relative'} direction={'column'} align={'center'} minH='100vh' width={'297px'} borderRight={'1px solid #EEEEEE'} pt={'24px'}>
           <Icon position={'absolute'} right={'8px'} top={'8px'} as={colorMode === 'light' ? MoonIcon : SunIcon} w={5} h={5} cursor={'alias'} onClick={toggleColorMode} opacity={0.5} />
           <Flex align={'center'} gap={'23px'}>
             <Icon as={MdPets} w={'54px'} h={'54px'} cursor='none' color={'#00ACC1'} p={'5px'} />
