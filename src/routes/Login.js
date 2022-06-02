@@ -1,4 +1,7 @@
-import { Button, Flex, FormControl, Image, FormLabel, Input, InputGroup, InputRightElement, Stack, Text, Link, useMediaQuery } from "@chakra-ui/react";
+import {
+  Button, Flex, FormControl, Image, FormLabel, Input, InputGroup, InputRightElement,
+  Stack, Text, Link, useMediaQuery
+} from "@chakra-ui/react";
 import { Link as ReachLink, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react"
 import { useAuth } from "../context/auth-context";
@@ -50,7 +53,8 @@ const Login = () => {
               <Text>Comece agora.</Text>
               <Text>Conecte-se já!</Text>
             </Stack>
-          </> :
+          </>
+          :
           <Image src={logoDesktop} width={'418px'} alignSelf='center' />
         }
       </Flex>
