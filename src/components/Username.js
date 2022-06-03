@@ -49,7 +49,7 @@ const Username = ({ name }) => {
             <Flex align='center' >
                 <InputGroup >
                     <InputLeftElement pointerEvents='none' children={<Icon as={MdPets} />} />
-                    <Input type='tel' placeholder='Nome do pet' {...register("name")} />
+                    <Input type='text' placeholder='Nome do pet' {...register("name")} autoComplete='off' />
                     {errors.name && <Alert status='warning'><AlertIcon />{errors.name.message}</Alert>}
                     <InputRightElement children={<Button type="submit" borderRadius={'0 8px 8px 0'}><Icon as={BsCheckLg} color='green.500' /></Button>} cursor='pointer' _hover={{ backgroundColor: 'green', borderRadius: '0 8px 8px 0' }} />
                 </InputGroup>
