@@ -19,7 +19,8 @@ const Petweet = ({ body, createdAt, user_id }) => {
             try {
                 const response = await client.get(`/users/${user_id}`)
                 setUser(response.data)
-                if (user.image_url) setUserPicutre(process.env.REACT_APP_API_URL + '/' + user.image_url)
+                // if (user.image_url) setUserPicutre(process.env.REACT_APP_API_URL + '/' + user.image_url)
+                if (user.image_url) setUserPicutre(user.image_url)
             } catch (error) { console.log(error) }
         }
         request()
@@ -27,7 +28,7 @@ const Petweet = ({ body, createdAt, user_id }) => {
 
     return (
         <Stack direction={'row'} p={['20px 16px 16px 16px']} borderBottom={'1px solid #EEEEEE'}>
-            <Image crossOrigin='anonymous' src={userPicture} borderRadius='full' boxSize={['48px', '40px']} />
+            <Image src={userPicture} borderRadius='full' boxSize={['48px', '40px']} />
             <Flex direction={'column'} gap={['4px', '9px']}>
                 <Stack direction={'row'} align='center' gap={['4px']}>
                     <Link to={location.pathname === '/' ? `profile/${user_id}` : '#'}><Text color={colorMode === 'light' ? ['#7d7d7d', 'black'] : '#e2e2e2'} fontWeight={700} fontSize={['14px', '15px']} lineHeight={['19px', '20px']}>{user.name}</Text></Link>

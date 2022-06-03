@@ -30,6 +30,7 @@ const Home = () => {
     } catch (error) {
       console.log(error)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [jump, refresh])
 
   const fetchData = () => setJump(jump + 10)
