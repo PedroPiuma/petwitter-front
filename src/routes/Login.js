@@ -1,6 +1,6 @@
 import {
   Button, Flex, FormControl, Image, FormLabel, Input, InputGroup, InputRightElement,
-  Stack, Text, Link, useMediaQuery
+  Stack, Text, Link, useMediaQuery, useToast
 } from "@chakra-ui/react";
 import { Link as ReachLink, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react"
@@ -24,6 +24,7 @@ const Login = () => {
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
   const [isLargerThan480] = useMediaQuery('(min-width: 480px)')
+  const toast = useToast()
 
   const schema = yup.object({
     email: yup.string().required("Email obrigatório"),
@@ -36,8 +37,16 @@ const Login = () => {
       await signin(event);
       navigate(from, { replace: true });
     } catch (error) {
-      console.log('Falha no login')
-      console.log(error)
+      // aqui
+      alert('Falha')
+      toast({
+        position: 'top',
+        title: 'Ruf Ruf!?',
+        description: 'Nem chega aqui',
+        status: 'error',
+        duration: 10000,
+        isClosable: true,
+      })
     }
   }
 

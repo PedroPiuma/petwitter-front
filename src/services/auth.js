@@ -8,6 +8,8 @@ export const updateProfile = (id, data) => client.patch(`/users/${id}`, data)
 
 export const createPetweet = (data) => client.post("/twitte", data)
 
+export const deletePetweet = (id) => client.delete(`/twitte/${id}`)
+
 export const getFromStorage = (key) => JSON.parse(localStorage.getItem(key));
 
 export const setInStorage = (key, data) => localStorage.setItem(key, JSON.stringify(data));

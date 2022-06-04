@@ -25,18 +25,25 @@ const PetweetBox = ({ setRefresh, onClose, setJump }) => {
             const { body } = event
             setSending(true)
             const response = await createPetweet({ body })
-            if (response.status === 200) toast({
-                title: 'Petweet feito com sucesso',
-                position: 'top',
-                status: 'success',
-                duration: 5000,
-                isClosable: true,
-            })
+            if (response.status === 200)
+                toast({
+                    title: 'Petweet feito com sucesso',
+                    position: 'top',
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                })
             reset()
             setPetwitteLength(0)
         } catch (error) {
-            alert('Falha em petwittar')
-            console.log(error)
+            toast({
+                position: 'top',
+                title: 'Ruf Ruf!?',
+                description: error.message,
+                status: 'error',
+                duration: 10000,
+                isClosable: true,
+            })
         } finally {
             setJump(0)
             setSending(false)
@@ -60,7 +67,7 @@ const PetweetBox = ({ setRefresh, onClose, setJump }) => {
                         </PopoverTrigger>
                         {errors.body && <PopoverContent w={'fit-content'}>
                             <PopoverArrow />
-                            <PopoverHeader bgColor={'#ffba8e'} borderRadius='5px'>Petweet vazio?!</PopoverHeader>
+                            <PopoverHeader bgColor={'red.500'} borderRadius='5px'>Petweet vazio?!</PopoverHeader>
                         </PopoverContent>}
                     </Popover>
                 </Flex>
