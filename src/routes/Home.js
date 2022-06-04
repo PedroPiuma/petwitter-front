@@ -1,6 +1,6 @@
 import {
   Box, Stack, Image, Text, useDisclosure, Modal,
-  ModalOverlay, ModalContent, ModalBody, CircularProgress
+  ModalOverlay, ModalContent, ModalBody, CircularProgress, useToast
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import Petweet from '../components/Petweet'
@@ -17,6 +17,7 @@ const Home = () => {
   const [refresh, setRefresh] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const { isOpen, onOpen, onClose } = useDisclosure()
+  // const toast = useToast()
 
   useEffect(() => {
     try {
@@ -28,7 +29,14 @@ const Home = () => {
       }
       request()
     } catch (error) {
-      console.log(error)
+      console.log(error.message)
+      //   toast({
+      //     position: 'top',
+      //     title: 'Perfil atualizado com sucesso.',
+      //     status: 'success',
+      //     duration: 5000,
+      //     isClosable: true,
+      // })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [jump, refresh])

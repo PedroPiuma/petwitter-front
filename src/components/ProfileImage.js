@@ -32,7 +32,7 @@ const ProfileImage = ({ profilePicture }) => {
                 position: 'top',
                 title: 'Link inválido.',
                 status: 'error',
-                duration: 2000,
+                duration: 5000,
                 isClosable: true,
             })
             const image = process.env.REACT_APP_GOGLE_DRIVE_URL + image_url.replace('https://drive.google.com/file/d/', '').split('/')[0]
@@ -48,7 +48,14 @@ const ProfileImage = ({ profilePicture }) => {
             onClose()
             setPicture(image)
         } catch (error) {
-            console.log('Falha no submit')
+            toast({
+                position: 'top',
+                title: 'Ruf Ruf!?',
+                description: 'Não foi possível atualizar foto: ' + error.message,
+                status: 'error',
+                duration: 10000,
+                isClosable: true,
+            })
         }
     }
 

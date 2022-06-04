@@ -1,17 +1,17 @@
 import {
   useMediaQuery, Button, Flex, FormControl, Image, FormLabel,
-  Input, InputGroup, InputRightElement, Stack, Text, Link, Alert, AlertIcon
+  Input, InputGroup, InputRightElement, Stack, Text, Link, Alert, AlertIcon, useToast
 } from "@chakra-ui/react";
 import { Link as ReachLink, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react"
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useForm } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { signup } from "../services/auth";
 import * as yup from 'yup'
 import dogWithGlasses from '../img/dogwithglasses.png'
 import logo from '../img/logo.png'
 import symbol from '../img/symbol.png'
-import { signup } from "../services/auth";
 import dogWithGlassesDesktop from '../img/dogwithglassesdesktop.png'
 import logoDesktop from '../img/logoDesktop.png'
 import symbolBlue from '../img/symbolBlue.png'
@@ -23,6 +23,7 @@ const SignUp = () => {
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
   const [isLargerThan480] = useMediaQuery('(min-width: 480px)')
+  const toast = useToast()
 
   const schema = yup.object({
     name: yup.string().required("Nome obrigatório"),
@@ -36,10 +37,24 @@ const SignUp = () => {
     try {
       const { name, email, username, password } = event
       await signup({ name, email, username, password });
-      alert("Usuário criado com sucesso. Efetue o login para continuar")
+      toast({
+        position: 'top',
+        title: 'Usuário criado com sucesso',
+        description: 'Efetue o login para continuar!',
+        status: 'success',
+        duration: 7000,
+        isClosable: true,
+      })
       navigate(from, { replace: true });
     } catch (error) {
-      console.log('Falha no submit')
+      toast({
+        position: 'top',
+        title: 'Falha ao criar usuário',
+        description: 'Infelizmente não foi possível criar usuário. ' + error.message,
+        status: 'error',
+        duration: 7000,
+        isClosable: true,
+      })
     }
   }
 
@@ -86,7 +101,7 @@ const SignUp = () => {
 
             <Button bgColor='#00ACC1' type="submit" color={'white'} mt={['36px', '28px']}>Cadastrar</Button>
 
-            <Text>Já possui cadastro?{isLargerThan480 ? ' ' : <br />}<Link as={ReachLink} to={'/'} color='#00acc1'>Faça login</Link></Text>
+            <Text pb={'25px'}>Já possui cadastro?{isLargerThan480 ? ' ' : <br />}<Link as={ReachLink} to={'/'} color='#00acc1'>Faça login</Link></Text>
 
           </FormControl>
         </form>

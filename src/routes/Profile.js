@@ -12,6 +12,7 @@ const Profile = () => {
   let auth = useAuth()
   const { id } = auth.user
   const [profile, setProfile] = useState('')
+  const [refresh, setRefresh] = useState(1)
   const [profilePicture, setProfilePicture] = useState(profileDefault)
   const [twittes, setTwittes] = useState([])
   const { user_id } = useParams()
@@ -23,15 +24,14 @@ const Profile = () => {
         const { data } = await client.get(`users/${id}`)
         setTwittes(response.data)
         setProfile(data)
-        // if (profile?.image_url) setProfilePicture(process.env.REACT_APP_API_URL + '/' + profile.image_url)
-        // if (profile?.image_url) setProfilePicture(process.env.REACT_APP_GOGLE_DRIVE_URL + profile.image_url)
         if (profile?.image_url) setProfilePicture(profile.image_url)
       }
       user_id ? request(user_id) : request(id)
     } catch (error) {
-      console.log('Falha na requisição do perfil')
+      // aqui
+      alert('Nem chega aqui!')
     }
-  }, [id, user_id, profile?.image_url])
+  }, [id, user_id, profile?.image_url, refresh])
 
   return (
     <Stack minW={'320px'} maxW={'683px'} spacing={0} width={'100%'} borderRight={'1px solid #EEEEEE'}>
@@ -39,13 +39,13 @@ const Profile = () => {
         borderBottom={'1px solid #EEEEEE'} >
         <ProfileImage profilePicture={profilePicture} />
         <Box>
-          <Username name={profile.name} />
+          <Username name={profile.name} setRefresh={setRefresh} />
           <Text color={'#8e8e8e'}>{profile.username}</Text>
         </Box>
         <Text position={'absolute'} px={'8px'} bottom={0} borderBottom={'4px solid #00ACC1'}>Petposts</Text>
       </Stack>
 
-      <Box direction={'column'}>{twittes.map(elem => <Petweet key={elem.id} body={elem.body} createdAt={elem.createdAt} user_id={user_id || id} />)}</Box>
+      <Box direction={'column'}>{twittes.map(elem => <Petweet setRefresh={setRefresh} key={elem.id} id={elem.id} body={elem.body} createdAt={elem.createdAt} user_id={user_id || id} />)}</Box>
     </Stack>
   )
 }

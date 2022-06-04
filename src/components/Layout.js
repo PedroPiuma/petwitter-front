@@ -22,6 +22,7 @@ function Layout() {
   const [isLargerThan480] = useMediaQuery('(min-width: 480px)')
   const location = useLocation();
   const { colorMode, toggleColorMode } = useColorMode()
+  const { user } = useAuth()
 
   const closeAll = () => {
     onClose()
@@ -53,10 +54,10 @@ function Layout() {
           <Drawer isOpen={isOpen} placement='left' onClose={onClose} finalFocusRef={btnRef}>
             <DrawerOverlay />
             <DrawerContent>
-              <Icon size={'32px'} position={'absolute'} top={'16px'} right={'18px'} as={colorMode === 'light' ? MoonIcon : SunIcon} w={5} h={5} cursor={'alias'} onClick={toggleColorMode} opacity={0.5} />
+              <Icon size={'32px'} position={'absolute'} top={'16px'} left={'18px'} as={colorMode === 'light' ? MoonIcon : SunIcon} w={5} h={5} cursor={'alias'} onClick={toggleColorMode} opacity={0.5} />
               <DrawerBody p={0}>
                 <Flex direction='column' align={'center'} width={'100%'} mt={'36px'} gap={'16px'}>
-                  <Image borderRadius='full' boxSize='56px' src={profileDefault} />
+                  <Image borderRadius='full' boxSize='56px' src={user?.image_url ? user.image_url : profileDefault} />
                   <Button width={'100%'} colorScheme='teal' variant='link' lineHeight={'24px'} py={'4px'}
                     borderRadius={0} bg={location.pathname === '/' ? (colorMode === 'light' ? '#e5f7f9' : '#3e3e3e') : ''} boxShadow={location.pathname === '/' ? 'inset 6px 0 0 #00ACC1' : ''}
                     as={ReachLink} to={'/'} onClick={onClose}>Home</Button>
@@ -72,7 +73,7 @@ function Layout() {
         </Flex>
         :
         <Flex position={'relative'} direction={'column'} align={'center'} minH='100vh' width={'297px'} borderRight={'1px solid #EEEEEE'} pt={'24px'}>
-          <Icon position={'absolute'} right={'8px'} top={'8px'} as={colorMode === 'light' ? MoonIcon : SunIcon} w={5} h={5} cursor={'alias'} onClick={toggleColorMode} opacity={0.5} />
+          <Icon position={'absolute'} left={'8px'} top={'8px'} as={colorMode === 'light' ? MoonIcon : SunIcon} w={5} h={5} cursor={'alias'} onClick={toggleColorMode} opacity={0.5} />
           <Flex align={'center'} gap={'23px'}>
             <Icon as={MdPets} w={'54px'} h={'54px'} cursor='none' color={'#00ACC1'} p={'5px'} />
             <Text fontWeight={700} fontSize={'27px'} lineHeight={'40px'} color={'#00ACC1'}>PETWITTER</Text>

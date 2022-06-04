@@ -1,6 +1,6 @@
 import {
     Flex, Text, Icon, Input, InputGroup, InputLeftElement, InputRightElement,
-    Alert, AlertIcon, Button, useToast
+    Button, useToast, Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverHeader
 } from "@chakra-ui/react"
 import { useState } from "react"
 import { useForm } from 'react-hook-form'
@@ -13,16 +13,13 @@ import { updateProfile } from "../services/auth";
 import { useAuth } from "../context/auth-context";
 import { useLocation } from "react-router-dom";
 
-const Username = ({ name }) => {
+const Username = ({ name, setRefresh }) => {
     const [changingName, setChangingName] = useState(false)
-    const [profileName, setProfileName] = useState(false)
     const { user } = useAuth()
     const location = useLocation()
     const toast = useToast()
 
-    const schema = yup.object({
-        name: yup.string().required("Nome obrigatório"),
-    }).required();
+    const schema = yup.object({ name: yup.string().max(25, 'Máximo 25 caracteres!').required("Nome obrigatório!") }).required();
     const { register, handleSubmit, formState: { errors }, reset } = useForm({ resolver: yupResolver(schema), });
 
     const onSubmit = async (event) => {
@@ -33,14 +30,22 @@ const Username = ({ name }) => {
                 position: 'top',
                 title: 'Perfil atualizado com sucesso.',
                 status: 'success',
-                duration: 2000,
+                duration: 5000,
                 isClosable: true,
             })
             reset()
-            setChangingName(false)
-            setProfileName(name)
+            setRefresh(Date.now())
         } catch (error) {
-            console.log('Falha no submit')
+            toast({
+                position: 'top',
+                title: 'Ruf Ruf!?',
+                description: 'Não foi possível atualizar pet name: ' + error.message,
+                status: 'error',
+                duration: 10000,
+                isClosable: true,
+            })
+        } finally {
+            setChangingName(false)
         }
     }
 
@@ -49,16 +54,24 @@ const Username = ({ name }) => {
             <Flex align='center' >
                 <InputGroup >
                     <InputLeftElement pointerEvents='none' children={<Icon as={MdPets} />} />
-                    <Input type='text' placeholder='Nome do pet' {...register("name")} autoComplete='off' />
-                    {errors.name && <Alert status='warning'><AlertIcon />{errors.name.message}</Alert>}
-                    <InputRightElement children={<Button type="submit" borderRadius={'0 8px 8px 0'}><Icon as={BsCheckLg} color='green.500' /></Button>} cursor='pointer' _hover={{ backgroundColor: 'green', borderRadius: '0 8px 8px 0' }} />
+                    <Input type='text' defaultValue={user.name} placeholder='Nome do Pet' maxLength={25} {...register("name")} autoComplete='off' />
+                    <Popover>
+                        <PopoverTrigger>
+                            <InputRightElement children={<Button type="submit" borderRadius={'0 8px 8px 0'}><Icon as={BsCheckLg} color='green.500' /></Button>} cursor='pointer' _hover={{ backgroundColor: 'green', borderRadius: '0 8px 8px 0' }} />
+                        </PopoverTrigger>
+                        {errors.name &&
+                            <PopoverContent w={'fit-content'}>
+                                <PopoverArrow />
+                                <PopoverHeader bgColor={'red.500'} borderRadius='5px' color={'white'}>{errors.name.message}?!</PopoverHeader>
+                            </PopoverContent>}
+                    </Popover>
                 </InputGroup>
                 <Icon as={AiFillCloseCircle} w={'20px'} h={'20px'} ml={'5px'} cursor='pointer' color={'red.600'} onClick={() => setChangingName(false)} />
             </Flex >
         </form >
         :
         <Flex>
-            <Text fontWeight={[700]} fontSize={['24px']} lineHeight={['33px']}>{profileName || name}</Text>
+            <Text fontWeight={[700]} fontSize={['24px']} lineHeight={['33px']}>{name}</Text>
             {location.pathname === '/profile' ? <Icon as={BsPencil} w={'12px'} h={'12px'} ml={'5px'} cursor='pointer' onClick={() => location.pathname === '/profile' ? setChangingName(true) : ''} /> : ''}
         </Flex>
     )
