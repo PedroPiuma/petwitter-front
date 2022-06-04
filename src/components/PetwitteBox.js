@@ -6,11 +6,11 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup'
-import { createPetweet } from '../services/auth'
+import { createPetwitte } from '../services/auth'
 import { useAuth } from '../context/auth-context';
 import profileDefault from '../img/profileDefault.png'
 
-const PetweetBox = ({ setRefresh, onClose, setJump }) => {
+const PetwitteBox = ({ setRefresh, onClose, setJump }) => {
     const [petwitteLength, setPetwitteLength] = useState(0)
     const [sending, setSending] = useState(false)
     const { colorMode } = useColorMode()
@@ -24,10 +24,10 @@ const PetweetBox = ({ setRefresh, onClose, setJump }) => {
         try {
             const { body } = event
             setSending(true)
-            const response = await createPetweet({ body })
+            const response = await createPetwitte({ body })
             if (response.status === 200)
                 toast({
-                    title: 'Petweet feito com sucesso',
+                    title: 'Petwitte feito com sucesso',
                     position: 'top',
                     status: 'success',
                     duration: 5000,
@@ -67,7 +67,7 @@ const PetweetBox = ({ setRefresh, onClose, setJump }) => {
                         </PopoverTrigger>
                         {errors.body && <PopoverContent w={'fit-content'}>
                             <PopoverArrow />
-                            <PopoverHeader bgColor={'red.500'} borderRadius='5px'>Petweet vazio?!</PopoverHeader>
+                            <PopoverHeader bgColor={'red.500'} borderRadius='5px'>Petwitte vazio?!</PopoverHeader>
                         </PopoverContent>}
                     </Popover>
                 </Flex>
@@ -76,4 +76,4 @@ const PetweetBox = ({ setRefresh, onClose, setJump }) => {
     )
 }
 
-export default PetweetBox
+export default PetwitteBox

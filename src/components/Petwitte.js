@@ -12,10 +12,10 @@ import client from '../providers/client'
 import ReactTimeAgo from 'react-time-ago'
 import { FaEllipsisH } from 'react-icons/fa'
 import { HiOutlineTrash } from 'react-icons/hi'
-import { deletePetweet } from "../services/auth"
+import { deletePetwitte } from "../services/auth"
 import { useForm } from "react-hook-form";
 
-const Petweet = ({ body, createdAt, user_id, id, setRefresh }) => {
+const Petwitte = ({ body, createdAt, user_id, id, setRefresh }) => {
     const [user, setUser] = useState([])
     const [userPicture, setUserPicutre] = useState(profileDefault)
     const { colorMode } = useColorMode()
@@ -51,7 +51,7 @@ const Petweet = ({ body, createdAt, user_id, id, setRefresh }) => {
 
     const onSubmit = async () => {
         try {
-            await deletePetweet(id)
+            await deletePetwitte(id)
             toast({
                 position: 'top',
                 title: 'Ruf Ruf! Petwitte deletado!',
@@ -99,11 +99,11 @@ const Petweet = ({ body, createdAt, user_id, id, setRefresh }) => {
             {location.pathname === '/profile' && user.id === user_id ? <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Deletar Petweet?</ModalHeader>
+                    <ModalHeader>Deletar Petwitte?</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody display={'flex'} flexDirection={'column'} gap='15px' >
                         <Text>Isso não pode ser desfeito, será removido do seu perfil e da linha do
-                            tempo de todas as contas do Petweet.</Text>
+                            tempo de todas as contas do Petwitte.</Text>
                         <form onSubmit={handleSubmit(onSubmit)}><Button w={'100%'} bgColor={'#f4212e'} borderRadius={'full'} type='submit'>Deletar</Button></form>
                         <Button variant='outline' borderRadius={'full'} onClick={onClose}>Cancelar</Button>
                     </ModalBody>
@@ -113,4 +113,4 @@ const Petweet = ({ body, createdAt, user_id, id, setRefresh }) => {
     )
 }
 
-export default Petweet
+export default Petwitte

@@ -6,9 +6,9 @@ export const signup = (data) => client.post("/signup", data)
 
 export const updateProfile = (id, data) => client.patch(`/users/${id}`, data)
 
-export const createPetweet = (data) => client.post("/twitte", data)
+export const createPetwitte = (data) => client.post("/twitte", data)
 
-export const deletePetweet = (id) => client.delete(`/twitte/${id}`)
+export const deletePetwitte = (id) => client.delete(`/twitte/${id}`)
 
 export const getFromStorage = (key) => JSON.parse(localStorage.getItem(key));
 

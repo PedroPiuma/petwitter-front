@@ -4,10 +4,10 @@ import profileDefault from '../img/profileDefault.png'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup'
-import { createPetweet } from '../services/auth'
+import { createPetwitte } from '../services/auth'
 import { useAuth } from '../context/auth-context';
 
-const PetweetBox = ({ setRefresh, onClose }) => {
+const PetwitteBoxMobile = ({ setRefresh, onClose }) => {
     const [petwitteLength, setPetwitteLength] = useState(0)
     const [sending, setSending] = useState(false)
     const { colorMode } = useColorMode()
@@ -21,7 +21,7 @@ const PetweetBox = ({ setRefresh, onClose }) => {
         const { body } = event
         try {
             setSending(true)
-            await createPetweet({ body });
+            await createPetwitte({ body });
         } catch (error) {
             toast({
                 position: 'top',
@@ -51,10 +51,10 @@ const PetweetBox = ({ setRefresh, onClose }) => {
             {errors.body && <Alert status='warning'><AlertIcon />{errors.body.message}</Alert>}
             <Flex mt={'6px'} paddingLeft={'16px'} paddingRight={'8px'}>
                 <Image src={user.image_url ? user.image_url : profileDefault} borderRadius='full' boxSize={'37px'} />
-                <Textarea id='petwitte' disabled={false} border={'none'} _focus={{ border: 'none' }} resize={'none'} placeholder='O que está acontecendo?' maxLength="140"  {...register("body")} />
+                <Textarea disabled={false} border={'none'} _focus={{ border: 'none' }} resize={'none'} placeholder='O que está acontecendo?' maxLength="140"  {...register("body")} />
             </Flex>
         </form>
     )
 }
 
-export default PetweetBox
+export default PetwitteBoxMobile
