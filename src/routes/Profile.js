@@ -3,7 +3,7 @@ import { Stack, Text, Box } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../context/auth-context'
-import Petweet from '../components/Petweet'
+import Petwitte from '../components/Petwitte'
 import Username from '../components/Username'
 import profileDefault from '../img/profileDefault.png'
 import ProfileImage from '../components/ProfileImage'
@@ -45,7 +45,7 @@ const Profile = () => {
         <Text position={'absolute'} px={'8px'} bottom={0} borderBottom={'4px solid #00ACC1'}>Petposts</Text>
       </Stack>
 
-      <Box direction={'column'}>{twittes.map(elem => <Petweet setRefresh={setRefresh} key={elem.id} id={elem.id} body={elem.body} createdAt={elem.createdAt} user_id={user_id || id} />)}</Box>
+      <Box direction={'column'}>{twittes.map(elem => <Petwitte setRefresh={setRefresh} key={elem.id} id={elem.id} body={elem.body} createdAt={elem.createdAt} user_id={user_id || id} />)}</Box>
     </Stack>
   )
 }
