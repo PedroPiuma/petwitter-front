@@ -76,7 +76,7 @@ const Petwitte = ({ body, createdAt, user_id, id, setRefresh }) => {
     }
 
     return (
-        <Stack direction={'row'} p={['20px 16px 16px 16px']} borderBottom={'1px solid #EEEEEE'}>
+        <Stack direction={'row'} p={['20px 16px 16px 16px']} borderBottom={'1px solid #EEEEEE'} maxW={['360px', '683px']}>
             <Image src={userPicture} borderRadius='full' boxSize={['48px', '40px']} />
             <Flex direction={'column'} gap={['4px', '9px']} width='100%' position={'relative'}>
                 <Stack direction={'row'} align='center' gap={['4px']} >
