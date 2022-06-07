@@ -37,12 +37,10 @@ const Login = () => {
       await signin(event);
       navigate(from, { replace: true });
     } catch (error) {
-      // aqui
-      alert('Falha')
       toast({
         position: 'top',
         title: 'Ruf Ruf!?',
-        description: 'Nem chega aqui',
+        description: 'Houve problema com código fonte da aplicação.',
         status: 'error',
         duration: 10000,
         isClosable: true,

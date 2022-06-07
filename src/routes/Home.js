@@ -17,27 +17,27 @@ const Home = () => {
   const [refresh, setRefresh] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const { isOpen, onOpen, onClose } = useDisclosure()
-  // const toast = useToast()
+  const toast = useToast()
 
   useEffect(() => {
-    try {
-      const request = async () => {
+    const request = async () => {
+      try {
         const response = await client.get(`twitte?skip=${jump}&take=10`)
-        const quantity = await client.get(`twitte`)
-        if (twittes.length >= quantity.data.length) setHasMore(false)
+        if (response.data.length === 0) setHasMore(false)
         jump === 0 ? setTwittes(response.data) : setTwittes(twittes.concat(response.data))
+
+      } catch (error) {
+        toast({
+          position: 'top',
+          title: 'Falha na conexão com servidor.',
+          description: error.message,
+          status: 'error',
+          duration: 10000,
+          isClosable: true,
+        })
       }
-      request()
-    } catch (error) {
-      console.log(error.message)
-      //   toast({
-      //     position: 'top',
-      //     title: 'Perfil atualizado com sucesso.',
-      //     status: 'success',
-      //     duration: 5000,
-      //     isClosable: true,
-      // })
     }
+    request()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [jump, refresh])
 

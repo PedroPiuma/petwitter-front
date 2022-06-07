@@ -15,7 +15,7 @@ import { HiOutlineTrash } from 'react-icons/hi'
 import { deletePetwitte } from "../services/auth"
 import { useForm } from "react-hook-form";
 
-const Petwitte = ({ body, createdAt, user_id, id, setRefresh }) => {
+const Petwitte = ({ body, createdAt, user_id, id, setRefresh, image }) => {
     const [user, setUser] = useState([])
     const [userPicture, setUserPicutre] = useState(profileDefault)
     const { colorMode } = useColorMode()
@@ -29,7 +29,8 @@ const Petwitte = ({ body, createdAt, user_id, id, setRefresh }) => {
             try {
                 const response = await client.get(`/users/${user_id}`)
                 setUser(response.data)
-                if (user.image_url) setUserPicutre(user.image_url)
+                if (image) setUserPicutre(image)
+                else if (user.image_url) setUserPicutre(user.image_url)
             } catch (error) {
                 const id = 'error-toast'
                 if (!toast.isActive(id)) {
