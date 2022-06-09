@@ -1,6 +1,6 @@
 import {
   Box, Stack, Image, Text, useDisclosure, Modal,
-  ModalOverlay, ModalContent, ModalBody, CircularProgress, useToast
+  ModalOverlay, ModalContent, ModalBody, CircularProgress, useToast, useColorMode
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import Petwitte from '../components/Petwitte'
@@ -18,12 +18,13 @@ const Home = () => {
   const [hasMore, setHasMore] = useState(true)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast()
+  const { colorMode } = useColorMode()
 
   useEffect(() => {
     const request = async () => {
       try {
         const response = await client.get(`twitte?skip=${jump}&take=10`)
-        if (response.data.length === 0) setHasMore(false)
+        if (response.data.length < 10) setHasMore(false)
         jump === 0 ? setTwittes(response.data) : setTwittes(twittes.concat(response.data))
 
       } catch (error) {
@@ -51,7 +52,7 @@ const Home = () => {
         loader={<CircularProgress isIndeterminate color='#00ACC1' display={'flex'} justifyContent={'center'} py={'16px'} />}
         endMessage={
           <Stack align={'center'} py='15px'>
-            <Text fontWeight={'600'} fontSize='16px' color={'gray.700'}>Ruf Ruf! Você já viu tudo!</Text>
+            <Text fontWeight={'600'} fontSize='16px' color={colorMode === 'light' ? 'gray.700' : 'white'}>Ruf Ruf! Você já viu tudo!</Text>
             <Image src={pictureOfEnd} boxSize={'80px'} borderRadius='full' bgColor={'#99dee6'} />
           </Stack>}>
         <Box direction={'column'}>

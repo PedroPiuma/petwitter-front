@@ -1,18 +1,18 @@
 import {
     Flex, Text, Icon, Input, InputGroup, InputLeftElement, InputRightElement,
-    Alert, AlertIcon, Button, useToast, Modal, ModalOverlay, ModalContent,
+    Button, useToast, Modal, ModalOverlay, ModalContent,
     Image, ModalHeader, ModalCloseButton, ModalBody, useDisclosure, Box,
-    UnorderedList, ListItem, Link
+    UnorderedList, ListItem, Link, Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverHeader
 } from "@chakra-ui/react"
 import { Fragment, useState } from "react"
 import { useForm } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup'
 import { BsCheckLg } from 'react-icons/bs';
-import { MdPets, MdOutlineAddPhotoAlternate } from 'react-icons/md';
 import { updateProfile } from "../services/auth";
 import { useAuth } from "../context/auth-context";
 import { useLocation } from "react-router-dom";
+import { MdPets, MdOutlineAddPhotoAlternate } from 'react-icons/md';
 
 const ProfileImage = ({ profilePicture }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -63,7 +63,7 @@ const ProfileImage = ({ profilePicture }) => {
         <Fragment>
             <Box position='relative'>
                 <Image cursor={'zoom-in'} borderRadius='full' boxSize={['73px', '120px']} src={picture || profilePicture} bgColor='#00ACC1' onClick={zoomOn} />
-                {location.pathname === '/profile' ? <Icon as={MdOutlineAddPhotoAlternate} w={'15px'} h={'15px'} cursor='pointer' position={'absolute'} onClick={onOpen} right={['-10px', 0]} bottom={0} /> : ''}
+                {location.pathname === '/profile' ? <Icon as={MdOutlineAddPhotoAlternate} w={'15px'} h={'15px'} cursor='pointer' p={'1px'} position={'absolute'} onClick={onOpen} right={['-10px', 0]} bottom={0} bgColor={'#00acc1'} borderRadius={'5px'} /> : ''}
             </Box>
 
             <Modal isOpen={isOpen} onClose={onClose}>
@@ -72,24 +72,37 @@ const ProfileImage = ({ profilePicture }) => {
                     <ModalHeader>Atualizar foto</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody position={'relative'} >
-                        <Text>REQUISITOS:</Text>
+
+                        <Text>REQUISITOS: </Text>
                         <UnorderedList>
-                            <ListItem>Ter uma conta no Google Drive.</ListItem>
+                            <ListItem>Ter uma conta no <Link href="https://www.google.com/intl/pt-br/drive/about.html" isExternal color='#00ACC1'> Google Drive</Link>.</ListItem>
                             <ListItem>Fazer o upload da foto no Google Drive.</ListItem>
-                            <ListItem>Copiar link da foto clicando em compartilhar.</ListItem>
+                            <ListItem>Gerar link de compartilhamento.</ListItem>
+                            <ListItem>Tornar link público para qualquer pessoa.</ListItem>
                             <ListItem>Colar abaixo o link copiado.</ListItem>
                         </UnorderedList>
                         <Text mt={'10px'}>Tutorial rápido por vídeo <Link href='https://youtube.com/shorts/-xjbIBZXd7Y?feature=share' isExternal color='#00ACC1'>aqui</Link>. (30seg)</Text>
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <Flex align='center' my={'20px'}>
-                                <InputGroup >
-                                    <InputLeftElement pointerEvents='none' children={<Icon as={MdPets} />} />
-                                    <Input type='tel' placeholder='Link da foto' {...register("image_url")} autoComplete='off' />
-                                    {errors.image_url && <Alert status='warning'><AlertIcon />{errors.image_url.message}</Alert>}
-                                    <InputRightElement children={<Button type="submit" borderRadius={'0 8px 8px 0'} _hover={{ backgroundColor: 'green.200' }}><Icon as={BsCheckLg} color='green.500' /></Button>} />
-                                </InputGroup>
-                            </Flex >
-                        </form >
+
+                        <Popover>
+                            <PopoverTrigger>
+                                <form onSubmit={handleSubmit(onSubmit)}>
+                                    <Flex align='center' my={'20px'}>
+                                        <InputGroup >
+                                            <InputLeftElement pointerEvents='none' children={<Icon as={MdPets} />} />
+                                            <Input type='tel' placeholder='Link da foto' {...register("image_url")} autoComplete='off' />
+                                            <InputRightElement children={<Button type="submit" borderRadius={'0 8px 8px 0'} _hover={{ backgroundColor: 'green.200' }}><Icon as={BsCheckLg} color='green.500' /></Button>} />
+                                        </InputGroup>
+                                    </Flex >
+                                </form >
+                            </PopoverTrigger>
+                            {errors.image_url &&
+                                <PopoverContent w={'fit-content'}>
+                                    <PopoverArrow />
+                                    <PopoverHeader bgColor={'red.500'} borderRadius='5px'>{errors.image_url.message}</PopoverHeader>
+                                </PopoverContent>
+                            }
+                        </Popover>
+
                     </ModalBody>
                 </ModalContent>
             </Modal>

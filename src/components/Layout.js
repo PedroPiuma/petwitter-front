@@ -50,7 +50,7 @@ function Layout() {
       {!isLargerThan480 ?
         <Flex align={'center'} p={'16px'}>
           <Image src={menuHamburguer} cursor={'pointer'} h={'16px'} w={'24px'} mr={'84px'} onClick={onOpen} ref={btnRef} />
-          <Image src={logo} h={'28px'} w={'116px'} cursor='none' />
+          <ReachLink to='/'><Image src={logo} h={'28px'} w={'116px'} cursor='pointer' /></ReachLink>
           <Drawer isOpen={isOpen} placement='left' onClose={onClose} finalFocusRef={btnRef}>
             <DrawerOverlay />
             <DrawerContent>

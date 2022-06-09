@@ -1,5 +1,5 @@
 import client from '../providers/client'
-import { Stack, Text, Box, useToast, CircularProgress, Image } from '@chakra-ui/react'
+import { Stack, Text, Box, useToast, CircularProgress, Image, useColorMode } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../context/auth-context'
@@ -21,6 +21,7 @@ const Profile = () => {
   const toast = useToast()
   const [jump, setJump] = useState(0)
   const [hasMore, setHasMore] = useState(true)
+  const { colorMode } = useColorMode()
 
   useEffect(() => {
     const request = async (id) => {
@@ -30,7 +31,7 @@ const Profile = () => {
         jump === 0 ? setTwittes(response.data) : setTwittes(twittes.concat(response.data))
         setProfile(data)
         if (profile?.image_url) setProfilePicture(profile.image_url)
-        if (response.data.length === 0) setHasMore(false)
+        if (response.data.length < 10) setHasMore(false)
       } catch (error) {
         toast({
           position: 'top',
@@ -60,13 +61,11 @@ const Profile = () => {
         <Text position={'absolute'} px={'8px'} bottom={0} borderBottom={'4px solid #00ACC1'}>Petposts</Text>
       </Stack>
 
-      {/* <Box direction={'column'}>{twittes.map(elem => <Petwitte setRefresh={setRefresh} key={elem.id} id={elem.id} body={elem.body} createdAt={elem.createdAt} user_id={user_id || id} />)}</Box> */}
-
       <InfiniteScroll dataLength={twittes.length} next={fetchData} hasMore={hasMore}
         loader={<CircularProgress isIndeterminate color='#00ACC1' display={'flex'} justifyContent={'center'} py={'16px'} />}
         endMessage={
           <Stack align={'center'} py='15px'>
-            <Text fontWeight={'600'} fontSize='16px' color={'gray.700'}>Ruf Ruf! Você já viu tudo!</Text>
+            <Text fontWeight={'600'} fontSize='16px' color={colorMode === 'light' ? 'gray.700' : 'white'}>Ruf Ruf! Você já viu tudo!</Text>
             <Image src={pictureOfEnd} boxSize={'80px'} borderRadius='full' bgColor={'#99dee6'} />
           </Stack>}>
         <Box direction={'column'}>
