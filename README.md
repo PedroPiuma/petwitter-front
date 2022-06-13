@@ -56,3 +56,6 @@ Para gerar a aplicação que ficará hospedada no ambiente de produção rode `n
 `routes`: contém as rotas da aplicação.
 
 `services`: pasta com arquivos que exportam funcões externas a aplicação como requisições.
+
+## Aguardando revisão para:
+- Impedir cadastro sem nome usando espaços vazios;
